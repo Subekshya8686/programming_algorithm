@@ -21,4 +21,41 @@ public class BST {
         }
         return rootnode;
     }
+
+    Node deleteNode(Node root, int data){
+        if(root==null){
+            return null;
+        }
+        if(data< root.data){
+            root.left=deleteNode(root.left,data);
+        }
+        else if(data> root.data){
+            root.right=deleteNode(root.right,data);
+        }
+        else {
+            if(root.left==null){
+                return root.right;
+            }
+            else if(root.right==null){
+                return root.left;
+            }
+            else{
+                root.data=findMin(root.right);
+                root.right=deleteNode(root.right,root.data);
+
+            }
+        }
+      return root;
+    }
+
+    int findMin(Node root){
+        int min=root.data;
+        while (root.left!=null){
+            root=root.left;
+            min= root.data;
+        }
+        return min;
+    }
+
+
 }
