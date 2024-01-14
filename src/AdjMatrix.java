@@ -181,7 +181,6 @@ return  dist[destination];
 
 
     }
-
     int findMinVertex(int [] dist, boolean [] visited){
         int minvertex=-1;
         for (int i=0;i<dist.length;i++){
@@ -190,6 +189,45 @@ return  dist[destination];
           }
         }
         return minvertex;
+    }
+
+
+    void topoSort(){
+        int cnt=0;
+        int indegree[]=new int[v];
+        Queue q=new Queue(v);
+        //calculated indegree
+        for(int i=0;i<v;i++){
+            for(int j=0;j<v;j++){
+                if(graph[i][j]!=0){
+                    indegree[j]++;
+                }
+            }
+        }
+        //placing vertices in queue having indegree 0
+        for(int i=0;i<indegree.length;i++){
+            if(indegree[i]==0){
+                q.enqueue(i);
+            }
+        }
+        while(!q.isEmpty()){
+            cnt++;
+            int x=q.dequeue();
+            System.out.println(x);
+            for(int j=0;j<v;j++){
+                if(graph[x][j]!=0){
+                    indegree[j]--;
+                    if(indegree[j]==0){
+                        q.enqueue(j);
+                    }
+                }
+            }
+        }
+
+        if(cnt!=v){
+            System.out.println("cycle detected");
+            return;
+        }
     }
 
 
